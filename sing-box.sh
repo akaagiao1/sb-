@@ -1836,7 +1836,7 @@ create_shortcut() {
   cat > $WORK_DIR/sb.sh << EOF
 #!/usr/bin/env bash
 
-bash <(wget --no-check-certificate -qO- https://raw.githubusercontent.com/fscarmen/sing-box/main/sing-box.sh) \$1
+bash <(wget --no-check-certificate -qO- https://raw.githubusercontent.com/akaagiao1/sb-zhaige/main/sing-box.sh) \$1
 EOF
   chmod +x $WORK_DIR/sb.sh
   ln -sf $WORK_DIR/sb.sh /usr/bin/sb

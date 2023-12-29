@@ -579,7 +579,6 @@ EOF
   [ "$IS_CHANGE" != 'change' ] &&  cat > $WORK_DIR/conf/02_route.json << EOF
 {
     "route":{
-    "final":"direct",
         "rule_set":[
             {
                 "tag":"geosite-openai",

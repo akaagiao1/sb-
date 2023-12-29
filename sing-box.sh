@@ -381,32 +381,6 @@ enter_start_port() {
   done
 }
 
-# 定义 Sing-box 变量
-sing-box_variable() {
-  if grep -qi 'cloudflare' <<< "$ASNORG4$ASNORG6"; then
-    local a=6
-    until [ -n "$SERVER_IP" ]; do
-      ((a--)) || true
-      [ "$a" = 0 ] && error "\n $(text 3) \n"
-      reading "\n $(text 46) " SERVER_IP
-    done
-    if [[ "$SERVER_IP" =~ : ]]; then
-      WARP_ENDPOINT=2606:4700:d0::a29f:c101
-      DOMAIN_STRATEG=prefer_ipv6
-    else
-      WARP_ENDPOINT=162.159.193.10
-      DOMAIN_STRATEG=prefer_ipv4
-    fi
-  elif [ -n "$WAN4" ]; then
-    SERVER_IP_DEFAULT=$WAN4
-    WARP_ENDPOINT=162.159.193.10
-    DOMAIN_STRATEG=prefer_ipv4
-  elif [ -n "$WAN6" ]; then
-    SERVER_IP_DEFAULT=$WAN6
-    WARP_ENDPOINT=2606:4700:d0::a29f:c101
-    DOMAIN_STRATEG=prefer_ipv6
-  fi
-
   # 选择安装的协议，由于选项 a 为全部协议，所以选项数不是从 a 开始，而是从 b 开始，处理输入：把大写全部变为小写，把不符合的选项去掉，把重复的选项合并
   MAX_CHOOSE_PROTOCOLS=$(asc $[CONSECUTIVE_PORTS+96+1])
   if [ -z "$CHOOSE_PROTOCOLS" ]; then
@@ -540,19 +514,6 @@ EOF
         {
             "type":"direct",
             "tag":"direct",
-            "domain_strategy":"$DOMAIN_STRATEG"
-        },
-        {
-            "type":"direct",
-            "tag":"warp-IPv4-out",
-            "detour":"wireguard-out",
-            "domain_strategy":"ipv4_only"
-        },
-        {
-            "type":"direct",
-            "tag":"warp-IPv6-out",
-            "detour":"wireguard-out",
-            "domain_strategy":"ipv6_only"
         },
         {
             "flow":"",
@@ -579,24 +540,6 @@ EOF
             },
             "type":"vless",
             "uuid":"d3f94c74-4cc0-4ac3-8178-3fc1c0396660"
-        },
-        {
-            "type":"wireguard",
-            "tag":"wireguard-out",
-            "server":"${WARP_ENDPOINT}",
-            "server_port":2408,
-            "local_address":[
-                "172.16.0.2/32",
-                "2606:4700:110:8a36:df92:102a:9602:fa18/128"
-            ],
-            "private_key":"YFYOAdbw1bKTHlNNi+aEjBM3BO7unuFC5rOkMRAz9XY=",
-            "peer_public_key":"bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
-            "reserved":[
-                78,
-                135,
-                76
-            ],
-            "mtu":1280
         },
         {
             "type":"block",

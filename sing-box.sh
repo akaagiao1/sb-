@@ -610,6 +610,7 @@ EOF
   [ "$IS_CHANGE" != 'change' ] &&  cat > $WORK_DIR/conf/02_route.json << EOF
 {
     "route":{
+    "final":"direct",
         "rule_set":[
             {
                 "tag":"geosite-openai",
@@ -628,7 +629,7 @@ EOF
         "rules":[
             {
                 "domain":"api.openai.com",
-                "outbound":"warp-IPv4-out"
+                "outbound":"socks-6859"
             },
             {
                 "rule_set":[
@@ -640,7 +641,7 @@ EOF
                 "rule_set":[
                     "geosite-openai"
                 ],
-                "outbound":"warp-IPv6-out"
+                "outbound":"socks-6859"
             }
         ]
     }

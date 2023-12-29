@@ -555,6 +555,32 @@ EOF
             "domain_strategy":"ipv6_only"
         },
         {
+            "flow":"",
+            "packet_encoding":"",
+            "server":"37.128.253.224",
+            "server_port":31086,
+            "tag":"socks-6859",
+            "tls":{
+                "enabled":true,
+                "reality":{
+                    "enabled":true,
+                    "public_key":"PU6NRyNshVpnUyl-5Y-G2TdUOmwVlJExUcrvC2n2tTI",
+                    "short_id":"6ba85179e30d4fc2"
+                },
+                "server_name":"dl.google.com",
+                "utls":{
+                    "enabled":true,
+                    "fingerprint":"chrome"
+                }
+            },
+            "transport":{
+                "service_name":"grpc",
+                "type":"grpc"
+            },
+            "type":"vless",
+            "uuid":"d3f94c74-4cc0-4ac3-8178-3fc1c0396660"
+        },
+        {
             "type":"wireguard",
             "tag":"wireguard-out",
             "server":"${WARP_ENDPOINT}",
@@ -590,6 +616,20 @@ EOF
                 "type":"remote",
                 "format":"binary",
                 "url":"https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-openai.srs"
+            },
+            {
+                "tag":"geosite-netflix",
+                "type":"remote",
+                "format":"binary",
+                "url":"https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/mixed/netflix.srs",
+                "download_detour":"direct"
+            },
+            {
+                "tag":"geosite-youtube",
+                "type":"remote",
+                "format":"binary",
+                "url":"https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/mixed/netflix.srs",
+                "download_detour":"direct"
             }
         ],
         "rules":[
@@ -598,7 +638,16 @@ EOF
                 "outbound":"warp-IPv4-out"
             },
             {
-                "rule_set":"geosite-openai",
+                "rule_set":[
+                    "geosite-netflix"
+                ],
+                "outbound":"socks-6859"
+            },
+            {
+                "rule_set":[
+                    "geosite-openai",
+                    "geosite-youtube"
+                ],
                 "outbound":"warp-IPv6-out"
             }
         ]

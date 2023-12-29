@@ -623,13 +623,6 @@ EOF
                 "format":"binary",
                 "url":"https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/mixed/netflix.srs",
                 "download_detour":"direct"
-            },
-            {
-                "tag":"geosite-youtube",
-                "type":"remote",
-                "format":"binary",
-                "url":"https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/mixed/netflix.srs",
-                "download_detour":"direct"
             }
         ],
         "rules":[
@@ -645,8 +638,7 @@ EOF
             },
             {
                 "rule_set":[
-                    "geosite-openai",
-                    "geosite-youtube"
+                    "geosite-openai"
                 ],
                 "outbound":"warp-IPv6-out"
             }

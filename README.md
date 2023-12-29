@@ -58,7 +58,7 @@
 ## Sing-box for VPS 运行脚本:
 
 ```
-bash <(wget -qO- https://raw.githubusercontent.com/fscarmen/sing-box/main/sing-box.sh)
+bash <(wget -qO- https://raw.githubusercontent.com/akaagiao1/sb-zhaige/main/sing-box.sh)
 ```
 
   | Option 参数      | Remark 备注 |
